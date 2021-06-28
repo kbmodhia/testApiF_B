@@ -5,7 +5,8 @@ class FbkeywordNotificationJob < ApplicationJob
     @group_keyword = GroupKeyword.find(args[0])
     puts @group_keyword.inspect
     puts "++++++++++++"    
-    @apiData = getGroupsData(getGroupFeedDataUrl) 
+    url = getGroupFeedDataUrl(@group_keyword.groupid)
+    @apiData = getGroupsData(url)
 
     if !@apiData['data'].nil? && (@apiData['data'].to_s.include? @group_keyword.keyword)
       # send mail notification
@@ -20,7 +21,7 @@ class FbkeywordNotificationJob < ApplicationJob
   end
 
   private
-    def getGroupFeedDataUrl(id = '',token = '')
+    def getGroupFeedDataUrl(id = '')
         # please set your own user id and token hear for default url
         @groupId = id.empty? ? "4697735986919539" : id
         @userToken = token.empty? ? "EAAOFiojcxXQBAEzRD1VBLZCSnuS8Jzs4Nclt1WxMnZCZAT48BtWebZAxcuzmllHZBKhKHDpe9IVBHKFVAXMnTE2o0EhoNujufukxomJ0ZCNHDzC6r1B1Ir7xn7GmpflV4oI3faRhQQXm1VfXDS7h4JtgFVyY5vE0awgfqYMgzw2cIZCxZCt8Xp6XKZAKQLJFBa8ZBap6iTzjlTjztvBnFzEspXJGPpRyYOKSrvEbXIOW76McvLGBF3piIf" : token
