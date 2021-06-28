@@ -28,7 +28,8 @@ class GroupKeywordsController < ApplicationController
     respond_to do |format|
       if @group_keyword.save
         # schedule job for selected recored
-        jobId = Sidekiq::Cron::Job.create(name: 'Hard worker - every 5min', cron: '*/5 * * * *', class: 'FbkeywordNotificationJob', args: @group_keyword.id) # execute at every 5 minutes, ex: 12:05, 12:10, 12:15...etc
+        # execute at every 5 minutes, ex: 12:05, 12:10, 12:15...etc
+        jobId = Sidekiq::Cron::Job.create(name: "Hard worker - every 5min userid-#{@group_keyword.id}", cron: '*/5 * * * *', class: 'FbkeywordNotificationJob', args: @group_keyword.id) 
 
         format.html { redirect_to @group_keyword, notice: "Group keyword was successfully created." }
         format.json { render :show, status: :created, location: @group_keyword }

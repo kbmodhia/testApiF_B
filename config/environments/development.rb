@@ -74,5 +74,29 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  ########## SIDEKIQ CONFIG
   config.active_job.queue_adapter = :sidekiq
+
+
+  ########## MAIL CONFIG 
+  #config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i'
+  # }
+  ########## MAIL CONFIG GMAIL
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'your_own_domain.com',
+    user_name:            '<username>', # please fill your own inforamtion
+    password:             '<password>', # please fill your own inforamtion
+    authentication:       'plain',
+    enable_starttls_auto: true }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'no-reply@example.com'}
+
 end
