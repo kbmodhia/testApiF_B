@@ -1,0 +1,74 @@
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '991254978282868',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v11.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+    /*FB.getLoginStatus(function(response) {
+        console.log(response);
+        statusChangeCallback(response);
+    });*/
+
+    function fbLogin(){
+        FB.login(function(response) {
+            if(response.authResponse){
+                fbAfterLogin();
+            }   
+        });
+    }
+
+    function fbAfterLogin() {
+        FB.getLoginStatus(function(response) {
+            if(response.status === "connected") {
+                console.log(JSON.stringify(response));            
+                FB.api("/me",function (resp) {
+                    console.log(JSON.stringify(resp));            
+                });
+            }
+        });
+    }
+</script>
+<center><div>
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="fbLogin();">
+</fb:login-button>
+
+</div>
+<div>
+<table border="1">
+    <tr>
+        <th>Group Name</th>
+        <th>Group Id</th>
+        <th>Action</th>
+    </tr>
+    
+    <% if !@apiData['data'].nil? %>
+        <% @apiData['data'].each do |groupData|%>
+        <tr>
+            <td><%=groupData['name'].nil? ? "-" : groupData['name']%></td>
+            <th><%=groupData['id'].nil? ? "-" : groupData['id']%></th>
+            <th><%= link_to 'New Group Keyword', new_group_keyword_path(userid: @userId,groupid: groupData['id']) %></th>
+            </tr>
+        <%end%>
+    <%end%>
+    
+</table>
+</div>
+</center>

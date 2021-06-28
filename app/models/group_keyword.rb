@@ -1,0 +1,2 @@
+class GroupKeyword < ApplicationRecord
+end

@@ -1,0 +1,32 @@
+<%= form_with(model: group_keyword) do |form| %>
+  <% if group_keyword.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group_keyword.errors.count, "error") %> prohibited this group_keyword from being saved:</h2>
+
+      <ul>
+        <% group_keyword.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :groupid %>
+    <%= form.text_field :groupid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :userid %>
+    <%= form.text_field :userid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :keyword %>
+    <%= form.text_field :keyword %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

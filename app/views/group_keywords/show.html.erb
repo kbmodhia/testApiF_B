@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Groupid:</strong>
+  <%= @group_keyword.groupid %>
+</p>
+
+<p>
+  <strong>Userid:</strong>
+  <%= @group_keyword.userid %>
+</p>
+
+<p>
+  <strong>Keyword:</strong>
+  <%= @group_keyword.keyword %>
+</p>
+
+<%= link_to 'Edit', edit_group_keyword_path(@group_keyword) %> |
+<%= link_to 'Back', group_keywords_path %>
